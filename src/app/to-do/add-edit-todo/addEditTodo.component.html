@@ -1,0 +1,51 @@
+<div>
+  <form class="row g-3 ">
+    <div class="input-group input-group-lg mb-2">
+      <input type="text" class="form-control " placeholder="Titre" [(ngModel)]="todoList.titre" name="toDoTitre"
+        autocomplete="off">
+      <button class="btn btn-success" type="button" aria-label="save" (click)="saveToDoList()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save-fill"
+          viewBox="0 0 16 16">
+          <path
+            d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v7.793L4.854 6.646a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l3.5-3.5a.5.5 0 0 0-.708-.708L8.5 9.293V1.5z" />
+        </svg>
+      </button>
+    </div>
+
+    <ul class="list-group mt-1">
+      <li class="list-group-item" *ngFor="let todo of todoList.toDoItemList; let i=index">
+        <div class="input-group">
+          <input class="form-check-input me-1" type="checkbox" [(ngModel)]="todo.statut" placeholder="text"
+            name="chkItem" [ngModelOptions]="{standalone: true}" />
+          <input class="form-control shadow-none" type="text" [(ngModel)]="todo.titre" aria-label="toDoItemInput"
+            [ngModelOptions]="{standalone: true}">
+
+          <button type="button" class="btn btn-outline-danger btn-sm  float-end" (click)="deleteTodo(todo, i)"
+            aria-label="delete">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+              viewBox="0 0 16 16">
+              <path
+                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+              <path fill-rule="evenodd"
+                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+            </svg>
+          </button>
+        </div>
+      </li>
+    </ul>
+
+    <div class="input-group mb-3">
+      <input [(ngModel)]="newTodo" (keyup.enter)="addTodoItemToList()" class="form-control" name="newTodo"
+        placeholder="Type in a new todo" autocomplete="off" type="text" class="form-control" placeholder="Item ...">
+      <button class="btn btn-primary" type="button" (click)="addTodoItemToList()" [disabled]="newTodo===''"
+        aria-label="addItem">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+        </svg>
+      </button>
+    </div>
+
+  </form>
+</div>

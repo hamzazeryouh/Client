@@ -1,0 +1,13 @@
+#map {
+  min-height: 94vh;
+}
+
+.alphabet{
+  width: 50px;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.page-item{
+  width: 31px;
+}

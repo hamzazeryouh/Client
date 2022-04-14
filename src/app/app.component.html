@@ -1,0 +1,22 @@
+<!-- Loading spinner -->
+<div *ngIf="loading" class="loading">Loading</div>
+
+
+<div class="d-flex" id="wrapper">
+
+  <!-- Sidebar -->
+  <div class="" id="sidebar-wrapper" style="box-shadow: inset -1px 0 0 rgb(0 0 0 / 10%)">
+      <app-side-bar></app-side-bar>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper" style="background-color: #f6f7f8;">
+    <app-header-bar></app-header-bar>
+    <div class="container-fluid pt-3 px-4 " style="overflow:auto; height: 94vh;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <!-- /#page-content-wrapper -->
+
+</div>
