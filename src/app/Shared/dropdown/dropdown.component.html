@@ -1,0 +1,11 @@
+<div [formGroup]="formInstant">
+    <p>{{label}}</p>
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" [id]="inputName" [formControlName]="inputName" (selectionChange)="onSelectionChangedChanged($event)" type="button" data-toggle="dropdown">Tutorials
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li *ngFor="let item of dropDownItems" [value]="item.value" >{{item.text}}</li>
+        </ul>
+      </div>
+</div>
+

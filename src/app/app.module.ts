@@ -35,7 +35,11 @@ import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.com
 import { AddEditCandidatComponent } from './candidats/add-edit-candidat/add-edit-candidat.component';
 import { AddEditCollaborateurComponent } from './collaborateurs/add-edit-collaborateur/add-edit-collaborateur.component';
 import { HttpRequestInterceptor } from './_interceptors/loading.interceptor';
-
+import { FormCandidatComponent } from './Shared/form-candidat/form-candidat.component';
+import { DropdownComponent } from './Shared/dropdown/dropdown.component';
+import { CustomInputComponent } from './Shared/custom-input/custom-input.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ViewcandidatsComponent } from './candidats/viewcandidats/viewcandidats.component';
 
 @NgModule({
   declarations: [
@@ -63,18 +67,27 @@ import { HttpRequestInterceptor } from './_interceptors/loading.interceptor';
       AddEditFreelancesComponent,
       AddEditMemosComponent,
       AddEditCandidatComponent,
-      AddEditCollaborateurComponent
+      AddEditCollaborateurComponent,
+      FormCandidatComponent,
+      DropdownComponent,
+      CustomInputComponent,
+      ViewcandidatsComponent,
+      
    ],
+   exports:[DropdownComponent],
   imports: [
     CommonModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgxEditorModule,
+    
   ],
+
   providers: [
     DatePipe,
     {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true},

@@ -24,6 +24,7 @@ function toggleSidebar(ref) {
   document.getElementById("sidebar").classList.toggle('hidden');
 }
 
+
 /* globals Chart:false, feather:false */
 window.addEventListener('DOMContentLoaded', event => {
 
