@@ -40,18 +40,33 @@
 <div>
   <table class="table">
     <thead>
-      <th>#Matricule</th>
+      <th>#Id</th>
+      <th>Civilité</th>
       <th>Nom</th>
       <th>Prenom</th>
-      <th>Date Entree</th>
+      <th>Date de naissance</th>
+      <th>Email</th>
+      <th>Télephone</th>
+      <th>Date premiere experience</th>
+
+    <!---  <th>Salaire actuel</th>
+      <th>Proposition salariale</th>
+      <th>Residence actuelle</th>
+      <th>Emploi Encore</th>
+    -->
       <th style="text-align:right">Options</th>
     </thead>
     <tbody>
       <tr (dbclick)="Get(item.id)" class="shadow-sm p-3 mb-5 bg-body rounded align-baseline" id="{{item.id}}" *ngFor="let item of CandidatsArray">
         <td class="text-start">{{item.id}}</td>
+        <th>{{item.civilite }}</th>
         <td>{{item.nom}}</td>
         <td>{{item.prenom }}</td>
         <td>{{item.dateNaissance | date: 'dd MMMM yyyy'}}</td>
+        <th>{{item.email }}</th>
+        <th>{{item.telephone }}</th>
+        <th>{{item.datePremiereExperience }}</th>
+
         <td id="options" class="text-end">
           <div class="container justify-content-end">
             <button  [routerLink]="['/addEditcandidats/Edit', item.id]" class="btn btn-sm btn-primary me-2 mb-1" aria-label="edit">
