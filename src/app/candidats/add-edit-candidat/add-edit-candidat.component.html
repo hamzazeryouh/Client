@@ -112,7 +112,7 @@
               <div class="form-outline">
                 <label class="fom-label mb-2" for="nom">Nom :</label>
                 <input
-                   [(ngModel)]="Nom"
+                  [(ngModel)]="Nom"
                   [formControlName]="'nom'"
                   type="text"
                   id="nom"
@@ -121,6 +121,7 @@
                   autocomplete="off"
                   [ngClass]="{ 'is-invalid': submitted && error['nom'].errors?.['required'] }"
                 />
+
                 <div
                   *ngIf="
                     error['nom'].invalid &&
