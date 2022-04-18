@@ -41,6 +41,8 @@ import { CustomInputComponent } from './Shared/custom-input/custom-input.compone
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ViewcandidatsComponent } from './candidats/viewcandidats/viewcandidats.component';
 import { PosteComponent } from './MDM/Postes/poste/poste.component';
+import { ListPosteComponent } from './MDM/Postes/list-poste/list-poste.component';
+
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { PosteComponent } from './MDM/Postes/poste/poste.component';
       CustomInputComponent,
       ViewcandidatsComponent,
       PosteComponent,
+      ListPosteComponent
       
    ],
    exports:[DropdownComponent],

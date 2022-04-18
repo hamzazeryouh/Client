@@ -13,6 +13,8 @@ import { FormationsComponent } from './formations/formations.component';
 import { ListFreelancesComponent } from './freelances/list-freelances/list-freelances.component';
 import { HomeComponent } from './home/home.component';
 import { IntegrationsComponent } from './integrations/integrations.component';
+import { AddPosteComponent } from './MDM/Postes/add-poste/add-poste.component';
+import { ListPosteComponent } from './MDM/Postes/list-poste/list-poste.component';
 import { AddEditMemosComponent } from './memos/add-edit-memos/add-edit-memos.component';
 import { MemoComponent } from './memos/memo/memo.component';
 import { ReportsComponent } from './reports/reports.component';
@@ -29,6 +31,9 @@ export const appRoutes: Routes = [
   { path: 'addEditcandidats', component: AddEditCandidatComponent},
   { path: 'collaborateurs', component: ListCollaborateursComponent},
   { path: 'addEditcollaborateur', component: AddEditCollaborateurComponent},
+  { path: 'postes', component: ListPosteComponent},
+  { path: 'postes/add', component: AddPosteComponent},
+  { path: 'poste/edit/:id', component: AddPosteComponent},
   { path: 'todo', component: ToDoComponent},
   { path: 'memo', component: MemoComponent},
   { path: 'addEdiMemos', component: AddEditMemosComponent},
