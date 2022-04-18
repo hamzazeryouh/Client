@@ -28,7 +28,7 @@
 
     <div class="btn-group me-2">
       <button type="button" class="btn btn-sm btn-outline-secondary">import</button>
-      <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" (click)="Export()">Export</button>
     </div>
     <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
       <span data-feather="calendar"></span>
@@ -38,7 +38,7 @@
 </div>
 
 <div>
-  <table class="table">
+  <table class="table" id="excel-table">
     <thead>
       <th>#Id</th>
       <th>Civilité</th>

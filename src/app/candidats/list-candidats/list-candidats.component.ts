@@ -5,7 +5,7 @@ import { ICandidat } from 'src/app/Models/Candidat.model';
 
 import { IDropDownItem } from 'src/app/Models/generals/IDropDownItem.model';
 import { CandidatService } from 'src/app/services/candidat.service';
-
+import * as XLSX from 'xlsx'; 
 @Component({
   selector: 'app-list-candidats',
   templateUrl: './list-candidats.component.html',
@@ -18,7 +18,7 @@ collabToDelete?: ICandidat;
 pageNumber = 1;
 pageSize = 10;
 form!:FormGroup;
-
+fileName:string = 'ExcelSheet.xlsx';  
 constructor(private service: CandidatService,private router:Router) { }
 
 ngOnInit(): void {
@@ -32,6 +32,21 @@ Get(id:number){
 View(id:number){
   this.router.navigate([ `/View/${id}`]);
 }
+
+Export(){
+
+   /* table id is passed over here */   
+   let element = document.getElementById('excel-table'); 
+   const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+   /* generate workbook and add the worksheet */
+   const wb: XLSX.WorkBook = XLSX.utils.book_new();
+   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+   /* save to file */
+   XLSX.writeFile(wb, this.fileName);
+}
+
 
 loadCandidats() {
   this.service.GetResult().subscribe(resp => {
