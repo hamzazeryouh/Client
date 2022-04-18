@@ -67,11 +67,13 @@ export class AddEditCandidatComponent implements OnInit {
         this.Prenom = this.modal.prenom;
         this.Civilite = this.modal?.civilite;
         this.PosteService.Get(this.modal.posteId).subscribe((data) => {
-          this.Poste = Object.values(data);
+          let P = Object.values(data);
+          this.Poste=P[0];
         });
         this.PosteNiveauService.Get(this.modal.posteNiveauId).subscribe(
           (data) => {
-            this.Niveau = Object.values(data);
+            let N= Object.values(data);
+            this.Niveau =N[0];
           }
         );
       });
@@ -112,7 +114,6 @@ export class AddEditCandidatComponent implements OnInit {
       return this.form.markAllAsTouched();
     }
     console.log(this.mode);
-
     if (this.mode == false) {
       this.modal=this.form.value;
       this.service.Add(this.modal).subscribe();
@@ -126,8 +127,14 @@ export class AddEditCandidatComponent implements OnInit {
       this.form.reset();
       this.Router.navigate([ `/candidats`]);
     } else {
+      debugger;
+      
+      this.modal=this.form.value;
+      this.modal.id=Number(this.route.snapshot.paramMap.get('id'));
+      console.log(this.modal);
+      
       this.service
-        .Update(String(this.id), this.form.value)
+        .Update(String(this.id), this.modal)
         .subscribe((data) => {
           Swal.fire({
             position: 'top-end',

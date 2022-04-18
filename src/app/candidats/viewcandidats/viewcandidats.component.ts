@@ -23,7 +23,7 @@ export class ViewcandidatsComponent implements OnInit {
   submitted = false;
   postes!: any[];
   posteNiveau!: any[];
- id:number;
+
   constructor(
     private location: Location,
     private fb: FormBuilder,
@@ -37,18 +37,20 @@ export class ViewcandidatsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.initForm();
-    this.id=Number(this.route.snapshot.paramMap.get('id'));
+    let id=Number(this.route.snapshot.paramMap.get('id'));
 
       this.mode=true;
-      this.service.Get(this.id).subscribe(data=>{
+      this.service.Get(id).subscribe(data=>{
         this.modal=data;
         this.setCandidatInForm(this.modal);
         this.PosteService.Get(this.modal.posteId).subscribe((data) => {
-          this.Poste = Object.values(data);
+          let poste =Object.values(data);
+          this.Poste=poste[0];
         });
         this.PosteNiveauService.Get(this.modal.posteNiveauId).subscribe(
           (data) => {
-            this.Niveau = Object.values(data);
+            let niveau = Object.values(data);
+            this.Niveau=niveau[0];
           }
         );
       });
@@ -73,7 +75,6 @@ export class ViewcandidatsComponent implements OnInit {
 
   setCandidatInForm(data: ICandidat) {
     this.form.setValue({
-      id:this.id??0,
       nom: data.nom,
       prenom: data.prenom,
       email: data.email,
@@ -93,7 +94,6 @@ export class ViewcandidatsComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      id:[this.id],
       nom: [null, [Validators.required]],
       prenom: [null, [Validators.required]],
       email: [null, [Validators.pattern(Appsettings.regexEmail)]],

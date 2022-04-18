@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { todoItem } from 'src/app/Models/todoItem';
-import { todoList } from 'src/app/Models/todoList';
+import { todoItem } from 'src/app/Models/TodoItem';
+import { todoList } from 'src/app/Models/TodoList';
+
 import { TodoListService } from 'src/app/services/todo-list.service';
 
 @Component({

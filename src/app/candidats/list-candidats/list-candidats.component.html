@@ -2,7 +2,7 @@
 
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-  <h2 class="h2">Collaborateurs</h2>
+  <h2 class="h2">Candidats</h2>
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-3">
       <button type="button" class="btn btn-primary btn-sm" [routerLink]="'/addEditcandidats'">Ajout</button>
@@ -59,13 +59,14 @@
     <tbody>
       <tr (dbclick)="Get(item.id)" class="shadow-sm p-3 mb-5 bg-body rounded align-baseline" id="{{item.id}}" *ngFor="let item of CandidatsArray">
         <td class="text-start">{{item.id}}</td>
-        <th>{{item.civilite }}</th>
+        <th *ngIf="item.civilite=='H'">Mr.</th>
+        <th *ngIf="item.civilite=='F'">Mms.</th>
         <td>{{item.nom}}</td>
         <td>{{item.prenom }}</td>
         <td>{{item.dateNaissance | date: 'dd MMMM yyyy'}}</td>
         <th>{{item.email }}</th>
         <th>{{item.telephone }}</th>
-        <th>{{item.datePremiereExperience }}</th>
+        <th>{{item.datePremiereExperience | date: 'dd MMMM yyyy' }}</th>
 
         <td id="options" class="text-end">
           <div class="container justify-content-end">

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { todoList } from 'src/app/Models/todoList';
+import { todoList } from '../../Models/TodoList';
+
+
 import { TodoListService } from 'src/app/services/todo-list.service';
 
 @Component({

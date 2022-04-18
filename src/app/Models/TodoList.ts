@@ -1,4 +1,6 @@
-import { todoItem } from "./todoItem";
+import { todoItem } from "../Models/TodoItem";
+
+
 
 export class todoList {
     Id:number=0;

@@ -40,6 +40,7 @@ import { DropdownComponent } from './Shared/dropdown/dropdown.component';
 import { CustomInputComponent } from './Shared/custom-input/custom-input.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ViewcandidatsComponent } from './candidats/viewcandidats/viewcandidats.component';
+import { PosteComponent } from './MDM/Postes/poste/poste.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { ViewcandidatsComponent } from './candidats/viewcandidats/viewcandidats.
       DropdownComponent,
       CustomInputComponent,
       ViewcandidatsComponent,
+      PosteComponent,
       
    ],
    exports:[DropdownComponent],
