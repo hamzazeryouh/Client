@@ -26,7 +26,7 @@ import { DemissionsComponent } from './demissions/demissions.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AddEditTodoComponent } from './to-do/add-edit-todo/addEditTodo.component';
-import {DatePipe} from '@angular/common';
+import {DatePipe, DecimalPipe} from '@angular/common';
 import { NgxEditorModule } from 'ngx-editor';
 import { CommonModule } from "@angular/common";
 import { ListFreelancesComponent } from './freelances/list-freelances/list-freelances.component';
@@ -42,6 +42,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ViewcandidatsComponent } from './candidats/viewcandidats/viewcandidats.component';
 import { PosteComponent } from './MDM/Postes/poste/poste.component';
 import { ListPosteComponent } from './MDM/Postes/list-poste/list-poste.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SortableDirective } from './Directives/sortable.directive';
 
 
 @NgModule({
@@ -76,7 +78,8 @@ import { ListPosteComponent } from './MDM/Postes/list-poste/list-poste.component
       CustomInputComponent,
       ViewcandidatsComponent,
       PosteComponent,
-      ListPosteComponent
+      ListPosteComponent,
+      SortableDirective
       
    ],
    exports:[DropdownComponent],
@@ -87,6 +90,7 @@ import { ListPosteComponent } from './MDM/Postes/list-poste/list-poste.component
     RouterModule.forRoot(appRoutes),
     FormsModule,
     NgbModule,
+    Ng2SearchPipeModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgxEditorModule,
@@ -94,6 +98,7 @@ import { ListPosteComponent } from './MDM/Postes/list-poste/list-poste.component
   ],
 
   providers: [
+    DecimalPipe,
     DatePipe,
     {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true},
   ],
