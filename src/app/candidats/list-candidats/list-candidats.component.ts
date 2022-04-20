@@ -1,14 +1,14 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SortableDirective, SortEvent } from 'src/app/Directives/sortable.directive';
 import { Candidat, ICandidat } from 'src/app/Models/Candidat.model';
-
 import { IDropDownItem } from 'src/app/Models/generals/IDropDownItem.model';
 import { CandidatService } from 'src/app/services/candidat.service';
 import { ExcelService } from 'src/app/services/excel/excel.service';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-list-candidats',
@@ -20,33 +20,30 @@ export class ListCandidatsComponent implements OnInit {
   Candidat$: Observable<ICandidat[]>;
   total$: Observable<number>;
   @ViewChildren(SortableDirective) headers: QueryList<SortableDirective>;
-  
-
+  @ViewChild('fileInput') fileInput:any; 
+  message: string;  
   collabToDelete?: ICandidat;
-  // Excel init
-  importCandidat: Candidat[] = [];
-  exportCandidat: Candidat[] = [];
+  active = 1;
   search: string;
+  blob:Blob;
   page = 1;
-  pageSize = 10;
+  pageSize = 0;
   form!: FormGroup;
-  fileName: string = 'ExcelSheet.xlsx';
+  file:FormData;
   constructor(
     public service: CandidatService,
     private router: Router,
     private ExcelService: ExcelService
   ) {
-
     this.Candidat$ = service.Candidat$;
     this.total$ = service.total$;
   }
 
   ngOnInit(): void {
-   
     
   }
 
-
+ 
   onSort({column, direction}: SortEvent) {
     // resetting other headers
     this.headers.forEach(header => {
@@ -83,18 +80,6 @@ export class ListCandidatsComponent implements OnInit {
     this.router.navigate([`/View/${id}`]);
   }
   
-  Export() {
-    /* table id is passed over here */
-    let element = document.getElementById('excel-table');
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-
-    /* generate workbook and add the worksheet */
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    /* save to file */
-    XLSX.writeFile(wb, this.fileName);
-  }
 
   deleteCollab(id: any): void {
     this.collabToDelete = id;
@@ -108,35 +93,35 @@ export class ListCandidatsComponent implements OnInit {
       });
     }
   }
-
-  onFileChange(evt: any) {
-    const target: DataTransfer = <DataTransfer>evt.target;
-    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
-
-    const reader: FileReader = new FileReader();
-    reader.onload = (e: any) => {
-      const bstr: string = e.target.result;
-      const data = <any[]>this.ExcelService.importFromFile(bstr);
-
-      const header: string[] = Object.getOwnPropertyNames(new Candidat());
-      const importedData = data.slice(1, -1);
-      let obj: any;
-      this.importCandidat = importedData.map((arr) => {
-        for (let i = 0; i < header.length; i++) {
-          const k = header[i];
-          obj[k] = arr[i];
-        }
-        return <ICandidat>obj;
-      });
-    };
-    reader.readAsBinaryString(target.files[0]);
+  uploadFile(){
+   
   }
 
-  public exportToFile(fileName: string, element_id: string) {
-    if (!element_id) throw new Error('Element Id does not exists');
+  ImportExcel(files:any){
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    this.service.ImportExcel(formData).subscribe(result=>{
+      this.message=result.toString();
 
-    let tbl = document.getElementById(element_id);
-    let wb = XLSX.utils.table_to_book(tbl);
-    XLSX.writeFile(wb, fileName + '.xlsx');
+      console.log(this.message);
+      
+  
+    });
+    this.service.ImportExcel(this.file).subscribe(data=>{
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Import Votre candidatures a été enregistrée ',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+      console.log(data);
+      
+    })
   }
+
 }

@@ -1,6 +1,9 @@
-<div onblur="toggleSidebar(this)"
+
+
+<div
   class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
 >
+
   <h2 *ngIf="mode==false"  class="h2">Ajout Candidat</h2>
   <h2 *ngIf="mode==true" class="h2">Edit Candidat</h2>
   <div class="btn-toolbar mb-2 mb-md-0">
@@ -66,429 +69,453 @@
     </div>
     <div class="col">
       <div class="container bg-white">
-        <p class="h3 p-3">Info</p>
-        <hr />
-        <form
-          [formGroup]="form"
-
-          novalidate
-          class="p-2 needs-validation"
-          autocomplete="off"
-        >
-          <!-- 2 column grid layout with text inputs for the first and last names -->
-          <div class="row mb-3">
-            <div class="col w-auto">
-              <div class="form-outline">
-                <label class="form-label" for="civilite">Civilité :</label>
-                <select
-                  
-                  [(ngModel)]="Civilite"
-                  [formControlName]="'civilite'"
-                  class="form-select border"
-                  name="civilite"
-                  aria-label="Default select example"
-                >
-                  <option [selected]="true">Sélectionner</option>
-                  <option value="H">Mr.</option>
-                  <option value="F">Mms</option>
-                </select>
-
-                <div
-                  class="invalid-feedback"
-                  *ngIf="
-                    error['civilite'].invalid &&
-                    (error['civilite'].dirty || error['civilite'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div *ngIf="error['civilite'].errors?.['required']">
-                    Civilité est requis.
+        <ul ngbNav #nav="ngbNav" class="nav-tabs">
+          <li ngbNavItem>
+            <a class="h3 px-5 " ngbNavLink>Info</a>
+            <ng-template ngbNavContent>
+              <hr />
+              <form
+              [formGroup]="form"
+    
+              novalidate
+              class="p-2 needs-validation"
+              autocomplete="off"
+            >
+              <!-- 2 column grid layout with text inputs for the first and last names -->
+              <div class="row mb-3">
+                <div class="col w-auto">
+                  <div class="form-outline">
+                    <label class="form-label" for="civilite">Civilité :</label>
+                    <select
+                      
+                      [(ngModel)]="Civilite"
+                      [formControlName]="'civilite'"
+                      class="form-select border"
+                      name="civilite"
+                      aria-label="Default select example"
+                    >
+                      <option [selected]="true">Sélectionner</option>
+                      <option value="H">Mr.</option>
+                      <option value="F">Mms</option>
+                    </select>
+    
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        error['civilite'].invalid &&
+                        (error['civilite'].dirty || error['civilite'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="error['civilite'].errors?.['required']">
+                        Civilité est requis.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="col mb-3">
+                  <div class="form-outline">
+                    <label class="fom-label mb-2" for="nom">Nom :</label>
+                    <input
+                      [(ngModel)]="Nom"
+                      [formControlName]="'nom'"
+                      type="text"
+                      id="nom"
+                      name="nom"
+                      class="form-control"
+                      autocomplete="off"
+                      [ngClass]="{ 'is-invalid': submitted && error['nom'].errors?.['required'] }"
+                    />
+    
+                    <div
+                      *ngIf="
+                        error['nom'].invalid &&
+                        (error['nom'].dirty || error['nom'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="error['nom'].errors?.['required']">
+                        nom est requis.
+                      </div>
+                    </div>
+    
+                    <!--end control error -->
+                  </div>
+                </div>
+    
+                <div class="col mb-3">
+                  <div class="form-outline">
+                    <label class="form-label" for="prenom">Prénom :</label>
+                    <input
+                    [(ngModel)]="Prenom"
+                      [formControlName]="'prenom'"
+                      type="text"
+                      id="prenom"
+                      class="form-control"
+                      autocomplete="off"
+                      autocomplete="off"
+                      required
+                      [ngClass]="{ 'is-invalid': submitted && error['nom'].errors }"
+                    />
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        error['prenom'].invalid &&
+                        (error['prenom'].dirty || error['prenom'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="error['prenom'].errors?.['required']">
+                        prenom est requis.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="dateNaissance"
+                      >Date de naissance :</label
+                    >
+                    <input
+                      [formControlName]="'dateNaissance'"
+                      type="date"
+                      id="dateNaissance"
+                      class="form-control"
+                      autocomplete="off"
+                      [ngClass]="{
+                        'is-invalid': submitted && error['dateNaissance'].errors
+                      }"
+                    />
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        error['dateNaissance'].invalid &&
+                        (error['dateNaissance'].dirty ||
+                          error['dateNaissance'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="error['dateNaissance'].errors?.['required']">
+                        Date de naissance est requis.
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div class="col mb-3">
-              <div class="form-outline">
-                <label class="fom-label mb-2" for="nom">Nom :</label>
-                <input
-                  [(ngModel)]="Nom"
-                  [formControlName]="'nom'"
-                  type="text"
-                  id="nom"
-                  name="nom"
+    
+            
+    
+              <div class="row mb-2">
+                <div class="col">
+                  <!-- Number input -->
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="telephone">télephone :</label>
+                    <input
+                      [formControlName]="'telephone'"
+                      type="tel"
+                      id="telephone"
+                      class="form-control"
+                      autocomplete="off"
+                      required
+                    />
+    
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        error['telephone'].invalid &&
+                        (error['telephone'].dirty || error['dateNaissance'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="error['telephone'].errors?.['required']">
+                        telephone est requis.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="email">Email :</label>
+                    <input
+                      [formControlName]="'email'"
+                      type="email"
+                      id="email"
+                      class="form-control"
+                      autocomplete="off"
+                      required
+                    />
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        error['email'].invalid &&
+                        (error['email'].dirty || error['dateNaissance'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="error['email'].errors?.['required']">
+                        email est requis.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="row mb-2">
+                <div class="col">
+                  <!-- Number input -->
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="datePremiereExperience"
+                      >Date première expérience :</label
+                    >
+                    <input
+                      [formControlName]="'datePremiereExperience'"
+                      type="date"
+                      id="datePremiereExperience"
+                      class="form-control"
+                      autocomplete="off"
+                    />
+    
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        error['datePremiereExperience'].invalid &&
+                        (error['datePremiereExperience'].dirty ||
+                          error['datePremiereExperience'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div
+                        *ngIf="error['datePremiereExperience'].errors?.['required']"
+                      >
+                        Date première expérience est requis.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="col">
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="emploiEncore"
+                      >Emploi encore :</label
+                    >
+                    <input
+                      [formControlName]="'emploiEncore'"
+                      type="text"
+                      id="emploiEncore"
+                      class="form-control"
+                      autocomplete="off"
+                    />
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        error['emploiEncore'].invalid &&
+                        (error['emploiEncore'].dirty ||
+                          error['emploiEncore'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="error['emploiEncore'].errors?.['required']">
+                        Emploi encore est requis.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="row mb-2">
+                <div class="col">
+                  <!-- Number input -->
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="salaireActuel"
+                      >Salaire actuel:</label
+                    >
+                    <input
+                      [formControlName]="'salaireActuel'"
+                      type="number"
+                      id="salaireActuel"
+                      class="form-control"
+                      autocomplete="off"
+                    />
+    
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        error['salaireActuel'].invalid &&
+                        (error['salaireActuel'].dirty ||
+                          error['salaireActuel'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="error['salaireActuel'].errors?.['required']">
+                        Salaire actuel est requis.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="col">
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="propositionSalariale"
+                      >Proposition salariale :</label
+                    >
+                    <input
+                      [formControlName]="'propositionSalariale'"
+                      type="number"
+                      id="propositionSalariale"
+                      class="form-control"
+                      autocomplete="off"
+                    />
+    
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        error['propositionSalariale'].invalid &&
+                        (error['propositionSalariale'].dirty ||
+                          error['propositionSalariale'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div
+                        *ngIf="error['propositionSalariale'].errors?.['required']"
+                      >
+                        Salaire actuel est requis.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="col">
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="residenceActuelle"
+                      >Residence actuelle :</label
+                    >
+                    <input
+                      [formControlName]="'residenceActuelle'"
+                      type="text"
+                      id="residenceActuelle"
+                      class="form-control"
+                      autocomplete="off"
+                    />
+    
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        error['residenceActuelle'].invalid &&
+                        (error['residenceActuelle'].dirty ||
+                          error['residenceActuelle'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="error['residenceActuelle'].errors?.['required']">
+                        Salaire actuel est requis.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="row mb-2">
+                <div class="col">
+                  <div class="form-outline">
+                    <label class="form-label" for="civilite">Poste :</label>
+                    <select
+                      [formControlName]="'posteId'"
+                      name="posteId"
+                      class="form-select border"
+                      required
+                      aria-label="Default select example"
+                    >
+                      <option [selected]="true">Sélectionner</option>
+                      <option *ngFor="let item of postes" [value]="item.id">
+                        {{ item.name }}
+                      </option>
+                    </select>
+    
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        error['posteId'].invalid &&
+                        (error['posteId'].dirty || error['posteId'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="error['posteId'].errors?.['required']">
+                        poste est requis.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="col">
+                  <div class="form-outline">
+                    <label class="form-label" for="posteNiveauId">Niveau :</label>
+                    <select
+                      [formControlName]="'posteNiveauId'"
+                      name="posteNiveauId"
+                      required
+                      class="form-select border"
+                      aria-label="Default select example"
+                    >
+                      <option [value]="0" [selected]="true">Sélectionner</option>
+                      <option *ngFor="let item of posteNiveau" [value]="item.id">
+                        <p>{{ item.name }}</p>
+                      </option>
+                    </select>
+    
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        error['posteNiveauId'].invalid &&
+                        (error['posteNiveauId'].dirty ||
+                          error['posteNiveauId'].touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="error['posteNiveauId'].errors?.['required']">
+                        Niveau est requis.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Message input -->
+              <div class="form-outline mb-4">
+                <label class="form-label" for="commentaire">Commentaire</label>
+                <textarea
+                  [formControlName]="'commentaire'"
                   class="form-control"
-                  autocomplete="off"
-                  [ngClass]="{ 'is-invalid': submitted && error['nom'].errors?.['required'] }"
-                />
-
-                <div
-                  *ngIf="
-                    error['nom'].invalid &&
-                    (error['nom'].dirty || error['nom'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div *ngIf="error['nom'].errors?.['required']">
-                    nom est requis.
-                  </div>
-                </div>
-
-                <!--end control error -->
+                  id="commentaire"
+                  rows="4"
+                ></textarea>
               </div>
-            </div>
+              <!-- Submit button -->
+              <!--button type="submit" class="btn btn-primary btn-block mb-4">
+                Place order
+              </button-->
+            </form>
 
-            <div class="col mb-3">
-              <div class="form-outline">
-                <label class="form-label" for="prenom">Prénom :</label>
-                <input
-                [(ngModel)]="Prenom"
-                  [formControlName]="'prenom'"
-                  type="text"
-                  id="prenom"
-                  class="form-control"
-                  autocomplete="off"
-                  autocomplete="off"
-                  required
-                  [ngClass]="{ 'is-invalid': submitted && error['nom'].errors }"
-                />
-                <div
-                  class="invalid-feedback"
-                  *ngIf="
-                    error['prenom'].invalid &&
-                    (error['prenom'].dirty || error['prenom'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div *ngIf="error['prenom'].errors?.['required']">
-                    prenom est requis.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-outline mb-3">
-                <label class="form-label" for="dateNaissance"
-                  >Date de naissance :</label
-                >
-                <input
-                  [formControlName]="'dateNaissance'"
-                  type="date"
-                  id="dateNaissance"
-                  class="form-control"
-                  autocomplete="off"
-                  [ngClass]="{
-                    'is-invalid': submitted && error['dateNaissance'].errors
-                  }"
-                />
-                <div
-                  class="invalid-feedback"
-                  *ngIf="
-                    error['dateNaissance'].invalid &&
-                    (error['dateNaissance'].dirty ||
-                      error['dateNaissance'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div *ngIf="error['dateNaissance'].errors?.['required']">
-                    Date de naissance est requis.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            </ng-template>
+          </li>
+          <li ngbNavItem>
+            <a ngbNavLink class="h3 px-5" >CV</a>
+            <ng-template ngbNavContent>
+              
+              <div class="h-100 bg-white">
+                <Kt-upload></Kt-upload>
+                <kt-pdf-viewer [src]="pdfSrc">
 
-        
+                </kt-pdf-viewer>
+              </div> 
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
 
-          <div class="row mb-2">
-            <div class="col">
-              <!-- Number input -->
-              <div class="form-outline mb-3">
-                <label class="form-label" for="telephone">télephone :</label>
-                <input
-                  [formControlName]="'telephone'"
-                  type="tel"
-                  id="telephone"
-                  class="form-control"
-                  autocomplete="off"
-                  required
-                />
 
-                <div
-                  class="invalid-feedback"
-                  *ngIf="
-                    error['telephone'].invalid &&
-                    (error['telephone'].dirty || error['dateNaissance'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div *ngIf="error['telephone'].errors?.['required']">
-                    telephone est requis.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-outline mb-3">
-                <label class="form-label" for="email">Email :</label>
-                <input
-                  [formControlName]="'email'"
-                  type="email"
-                  id="email"
-                  class="form-control"
-                  autocomplete="off"
-                  required
-                />
-                <div
-                  class="invalid-feedback"
-                  *ngIf="
-                    error['email'].invalid &&
-                    (error['email'].dirty || error['dateNaissance'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div *ngIf="error['email'].errors?.['required']">
-                    email est requis.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+   
 
-          <div class="row mb-2">
-            <div class="col">
-              <!-- Number input -->
-              <div class="form-outline mb-3">
-                <label class="form-label" for="datePremiereExperience"
-                  >Date première expérience :</label
-                >
-                <input
-                  [formControlName]="'datePremiereExperience'"
-                  type="date"
-                  id="datePremiereExperience"
-                  class="form-control"
-                  autocomplete="off"
-                />
-
-                <div
-                  class="invalid-feedback"
-                  *ngIf="
-                    error['datePremiereExperience'].invalid &&
-                    (error['datePremiereExperience'].dirty ||
-                      error['datePremiereExperience'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div
-                    *ngIf="error['datePremiereExperience'].errors?.['required']"
-                  >
-                    Date première expérience est requis.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col">
-              <div class="form-outline mb-3">
-                <label class="form-label" for="emploiEncore"
-                  >Emploi encore :</label
-                >
-                <input
-                  [formControlName]="'emploiEncore'"
-                  type="text"
-                  id="emploiEncore"
-                  class="form-control"
-                  autocomplete="off"
-                />
-                <div
-                  class="invalid-feedback"
-                  *ngIf="
-                    error['emploiEncore'].invalid &&
-                    (error['emploiEncore'].dirty ||
-                      error['emploiEncore'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div *ngIf="error['emploiEncore'].errors?.['required']">
-                    Emploi encore est requis.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mb-2">
-            <div class="col">
-              <!-- Number input -->
-              <div class="form-outline mb-3">
-                <label class="form-label" for="salaireActuel"
-                  >Salaire actuel:</label
-                >
-                <input
-                  [formControlName]="'salaireActuel'"
-                  type="number"
-                  id="salaireActuel"
-                  class="form-control"
-                  autocomplete="off"
-                />
-
-                <div
-                  class="invalid-feedback"
-                  *ngIf="
-                    error['salaireActuel'].invalid &&
-                    (error['salaireActuel'].dirty ||
-                      error['salaireActuel'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div *ngIf="error['salaireActuel'].errors?.['required']">
-                    Salaire actuel est requis.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col">
-              <div class="form-outline mb-3">
-                <label class="form-label" for="propositionSalariale"
-                  >Proposition salariale :</label
-                >
-                <input
-                  [formControlName]="'propositionSalariale'"
-                  type="number"
-                  id="propositionSalariale"
-                  class="form-control"
-                  autocomplete="off"
-                />
-
-                <div
-                  class="invalid-feedback"
-                  *ngIf="
-                    error['propositionSalariale'].invalid &&
-                    (error['propositionSalariale'].dirty ||
-                      error['propositionSalariale'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div
-                    *ngIf="error['propositionSalariale'].errors?.['required']"
-                  >
-                    Salaire actuel est requis.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col">
-              <div class="form-outline mb-3">
-                <label class="form-label" for="residenceActuelle"
-                  >Residence actuelle :</label
-                >
-                <input
-                  [formControlName]="'residenceActuelle'"
-                  type="text"
-                  id="residenceActuelle"
-                  class="form-control"
-                  autocomplete="off"
-                />
-
-                <div
-                  class="invalid-feedback"
-                  *ngIf="
-                    error['residenceActuelle'].invalid &&
-                    (error['residenceActuelle'].dirty ||
-                      error['residenceActuelle'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div *ngIf="error['residenceActuelle'].errors?.['required']">
-                    Salaire actuel est requis.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mb-2">
-            <div class="col">
-              <div class="form-outline">
-                <label class="form-label" for="civilite">Poste :</label>
-                <select
-                  [formControlName]="'posteId'"
-                  name="posteId"
-                  class="form-select border"
-                  required
-                  aria-label="Default select example"
-                >
-                  <option [selected]="true">Sélectionner</option>
-                  <option *ngFor="let item of postes" [value]="item.id">
-                    {{ item.name }}
-                  </option>
-                </select>
-
-                <div
-                  class="invalid-feedback"
-                  *ngIf="
-                    error['posteId'].invalid &&
-                    (error['posteId'].dirty || error['posteId'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div *ngIf="error['posteId'].errors?.['required']">
-                    poste est requis.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col">
-              <div class="form-outline">
-                <label class="form-label" for="posteNiveauId">Niveau :</label>
-                <select
-                  [formControlName]="'posteNiveauId'"
-                  name="posteNiveauId"
-                  required
-                  class="form-select border"
-                  aria-label="Default select example"
-                >
-                  <option [value]="0" [selected]="true">Sélectionner</option>
-                  <option *ngFor="let item of posteNiveau" [value]="item.id">
-                    <p>{{ item.name }}</p>
-                  </option>
-                </select>
-
-                <div
-                  class="invalid-feedback"
-                  *ngIf="
-                    error['posteNiveauId'].invalid &&
-                    (error['posteNiveauId'].dirty ||
-                      error['posteNiveauId'].touched)
-                  "
-                  class="text-danger"
-                >
-                  <div *ngIf="error['posteNiveauId'].errors?.['required']">
-                    Niveau est requis.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Message input -->
-          <div class="form-outline mb-4">
-            <label class="form-label" for="commentaire">Commentaire</label>
-            <textarea
-              [formControlName]="'commentaire'"
-              class="form-control"
-              id="commentaire"
-              rows="4"
-            ></textarea>
-          </div>
-          <!-- Submit button -->
-          <!--button type="submit" class="btn btn-primary btn-block mb-4">
-            Place order
-          </button-->
-        </form>
       </div>
     </div>
   </div>

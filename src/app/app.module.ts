@@ -44,8 +44,11 @@ import { PosteComponent } from './MDM/Postes/poste/poste.component';
 import { ListPosteComponent } from './MDM/Postes/list-poste/list-poste.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SortableDirective } from './Directives/sortable.directive';
-
-
+import {  LinkAnnotationService, BookmarkViewService, MagnificationService, ThumbnailViewService,
+  ToolbarService, NavigationService, TextSearchService, TextSelectionService, PrintService } from '@syncfusion/ej2-angular-pdfviewer';
+import { PdfViewerComponent } from './Shared/pdf-viewer/pdf-viewer.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { UploadComponent } from './Shared/upload/upload.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +82,9 @@ import { SortableDirective } from './Directives/sortable.directive';
       ViewcandidatsComponent,
       PosteComponent,
       ListPosteComponent,
-      SortableDirective
+      SortableDirective,
+      PdfViewerComponent,
+      UploadComponent
       
    ],
    exports:[DropdownComponent],
@@ -94,6 +99,7 @@ import { SortableDirective } from './Directives/sortable.directive';
     ReactiveFormsModule,
     HttpClientModule,
     NgxEditorModule,
+    PdfViewerModule
     
   ],
 
@@ -101,6 +107,8 @@ import { SortableDirective } from './Directives/sortable.directive';
     DecimalPipe,
     DatePipe,
     {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true},
+    ToolbarService, NavigationService, TextSearchService, TextSelectionService, PrintService,
+    LinkAnnotationService, BookmarkViewService, MagnificationService, ThumbnailViewService,
   ],
   bootstrap: [AppComponent]
 })

@@ -73,11 +73,16 @@ export class CandidatService  extends BaseService<ICandidat,number> {
       delay(200),
       tap(() => this._loading$.next(false))
     ).subscribe(result => {
+      
       this._Candidat$.next(result.Candidat);
       this._total$.next(result.total);
     });
 
     this._search$.next();
+
+    //this.GetResult().subscribe(data=>{
+      //this._Candidat$.next(Object.values(data));
+   // })
   }
   private _state: State = {
     page: 1,
@@ -124,5 +129,7 @@ export class CandidatService  extends BaseService<ICandidat,number> {
     Candidat = Candidat.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({Candidat, total});
   }
+
+
 
 }

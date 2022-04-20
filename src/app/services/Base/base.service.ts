@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+
 export interface IBaseService<T, Key> {
   GetResult(): Observable<T[]>;
   Delete(id: Key): Observable<T>;
@@ -30,7 +32,22 @@ export abstract class  BaseService<T,Key>implements IBaseService<T, Key> {
 Delete(id: Key): Observable<T> {
     return this.http.delete<T>(`${this.baseUrl}/${id}`);
 }
+ExportExcel(): Observable<any>{
 
+    return this.http.get<any>(`${this.baseUrl}/ExportExcel`);
+}
+
+ImportExcel(file:FormData): Observable<T[]>{
+    const httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type': 'multipart/form-data' // <- HERE
+          }),
+       
+      }
+
+
+    return this.http.post<T[]>(`${this.baseUrl}/ImportExcel`,file,httpOptions);
+}
 /**
  * display information of T
  * @param id id of T
@@ -38,6 +55,8 @@ Delete(id: Key): Observable<T> {
 Get(id: Key): Observable<T> {
     return this.http.get<T>(`${this.baseUrl}/${id}`);
 }
+
+
 
 
 /**

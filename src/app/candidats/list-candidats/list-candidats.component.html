@@ -57,29 +57,32 @@
     </div>
 
     <div class="btn-group me-2">
-      <button type="button" class="btn btn-sm btn-outline-secondary">
+      <button               data-bs-toggle="modal"
+      data-bs-target="#ImportExcelModal" type="button"  class="btn btn-sm btn-outline-secondary">
         import
       </button>
-      <button
-        type="button"
-        class="btn btn-sm btn-outline-secondary"
-        (click)="Export()"
-      >
-        Export
-      </button>
+      <a class="btn btn-sm btn-outline-secondary"
+       href="https://localhost:7019/api/Candidat/ExportExcel">Export</a>
     </div>
-    <button
-      type="button"
-      class="btn btn-sm btn-outline-secondary dropdown-toggle"
-    >
-      <span data-feather="calendar"></span>
-      Filtres
-    </button>
+  
+
+    <select
+    class="form-select btn btn-sm btn-outline-secondary dropdown-toggle"
+    style="width: auto"
+    name="pageSize"
+    [(ngModel)]="service.pageSize"
+  >
+  
+  <option selected [ngValue]="10">Filtres</option>
+    <option  [ngValue]="10">10</option>
+    <option [ngValue]="25">25</option>
+    <option [ngValue]="50">50</option>
+    <option [ngValue]="100">100</option>
+  </select>
   </div>
 </div>
 
 <div class="row p-2">
-
   <div class="col w-25">
     <input
       type="search"
@@ -90,34 +93,7 @@
     />
   </div>
 </div>
-<div class="container" *ngIf="Candidat$==null">
-  <div class="row">
-      <div class="col-md-12">
-          <div class="error-template">
-              <h1>
-                  Oops!</h1>
-              <h2>
-               data Not Found -_- </h2>
-             
-          </div>
-      </div>
-  </div>
-</div>
 
-<!-- <div class="d-flex jsutify-content-center" *ngIf="pagination">
-   <pagination
-      [boundaryLinks]="true"
-      [totalItems]="pagination.totalCount"
-      [itemsPerPage]="pagination.pageSize"
-      [(ngModel)]="pagination.currentPage"
-      (pageChanged)="pageChanged($event)"
-      previousText="&lsaquo;"
-      nextText="&rsaquo;"
-      firstText="&laquo;"
-      lastText="&raquo;">
-   </pagination>
-</div> -->
-<!-- Modal -->
 <div
   class="modal fade"
   id="deleteModal"
@@ -129,7 +105,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
-          Archiver Collaborateur
+          Archiver Candidat
         </h5>
         <button
           type="button"
@@ -159,9 +135,61 @@
   </div>
 </div>
 
+<div
+  class="modal fade"
+  id="ImportExcelModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+         Import Excel
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row p-2">
+          <div class="col w-25">
+            <input
+              type="file"
+              (change)="ImportExcel(file.files)"
+              #file
+              class="form-control"
+              placeholder="Import"
+              aria-label="Import"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          (click)="file.click()"
+          data-bs-dismiss="modal"
+          class="btn btn-primary"
+          accept=".xls,.xlsx"
+        >
+          Import
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <form>
-
-
   <table class="table">
     <thead>
       <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline">
@@ -188,8 +216,10 @@
         <td id="options" class="text-end">options</td>
       </tr>
     </thead>
-    <tbody class="shadow-sm p-3 mb-5 bg-body rounded align-baseline">
+    <tbody *ngIf="Candidat$!==null" class="shadow-sm p-3 mb-5 bg-body rounded align-baseline">
+
       <tr
+      
         *ngFor="let candidat of Candidat$ | async | filter: search"
         (dbclick)="Get(candidat.id)"
         class="shadow-sm p-3 mb-5 bg-body rounded align-baseline"
@@ -331,16 +361,6 @@
     >
     </ngb-pagination>
 
-    <select
-      class="form-select"
-      style="width: auto"
-      name="pageSize"
-      [(ngModel)]="service.pageSize"
-    >
-      <option selected [ngValue]="10">10</option>
-      <option [ngValue]="25">25</option>
-      <option [ngValue]="50">50</option>
-      <option [ngValue]="100">100</option>
-    </select>
+   
   </div>
 </form>

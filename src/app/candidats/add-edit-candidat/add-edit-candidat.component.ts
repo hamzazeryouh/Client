@@ -31,6 +31,7 @@ export class AddEditCandidatComponent implements OnInit {
   postes!: any[];
   posteNiveau!: any[];
   id: Number;
+  pdfSrc = '';
   constructor(
     private location: Location,
     private fb: FormBuilder,
@@ -44,9 +45,7 @@ export class AddEditCandidatComponent implements OnInit {
     return this.form.controls;
   }
 
-  get nom() {
-    return this.form.get('nom');
-  }
+
   ngOnInit(): void {
     this.initForm();
     // Get List PosteNiveau
@@ -67,8 +66,8 @@ export class AddEditCandidatComponent implements OnInit {
         this.Prenom = this.modal.prenom;
         this.Civilite = this.modal?.civilite;
         this.PosteService.Get(this.modal.posteId).subscribe((data) => {
-          let P = Object.values(data);
-          this.Poste=P[0];
+        let P = Object.values(data);
+        this.Poste=P[0];
         });
         this.PosteNiveauService.Get(this.modal.posteNiveauId).subscribe(
           (data) => {
