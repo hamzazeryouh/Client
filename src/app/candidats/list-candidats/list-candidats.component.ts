@@ -2,7 +2,8 @@ import { DecimalPipe } from '@angular/common';
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { dataBound } from '@syncfusion/ej2-angular-grids';
+import { catchError, Observable, throwError } from 'rxjs';
 import { SortableDirective, SortEvent } from 'src/app/Directives/sortable.directive';
 import { Candidat, ICandidat } from 'src/app/Models/Candidat.model';
 import { IDropDownItem } from 'src/app/Models/generals/IDropDownItem.model';
@@ -40,10 +41,51 @@ export class ListCandidatsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
+  }
+
+  public uploadFile = (files:any) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    this.service.ImportExcel(formData).subscribe(data=>{
+
+    },
+    error=>{
+      console.log(error);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'erreur Importer les candidatures',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
+    ()=>{
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Importer des candidatures a été un succès',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+    );
+
+    
+   
+
+
+    
+  
     
   }
 
- 
+  
+
   onSort({column, direction}: SortEvent) {
     // resetting other headers
     this.headers.forEach(header => {
@@ -93,9 +135,7 @@ export class ListCandidatsComponent implements OnInit {
       });
     }
   }
-  uploadFile(){
-   
-  }
+
 
   ImportExcel(files:any){
     if (files.length === 0) {

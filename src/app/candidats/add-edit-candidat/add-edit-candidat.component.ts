@@ -31,6 +31,8 @@ export class AddEditCandidatComponent implements OnInit {
   postes!: any[];
   posteNiveau!: any[];
   id: Number;
+  iditem:number;
+  ImageUrl='';
   pdfSrc = '';
   constructor(
     private location: Location,
@@ -57,10 +59,12 @@ export class AddEditCandidatComponent implements OnInit {
       this.postes = Object.values(result);
     });
     this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.iditem=Number(this.id) ;
     if (this.id !== 0) {
       this.mode = true;
       this.service.Get(Number(this.id)).subscribe((data) => {
         this.modal = data;
+        this.ImageUrl=String(this.modal.imageUrl);
         this.setCandidatInForm(this.modal);
         this.Nom = this.modal.nom;
         this.Prenom = this.modal.prenom;
@@ -75,6 +79,10 @@ export class AddEditCandidatComponent implements OnInit {
             this.Niveau =N[0];
           }
         );
+       console.log("image -----------"+this.modal?.imageUrl?.toString());
+       this.GetImage(this.modal?.imageUrl);
+        
+
       });
     }
   }
@@ -86,6 +94,11 @@ export class AddEditCandidatComponent implements OnInit {
     this.location.back();
   }
 
+  GetImage(image:any){
+    this.service.GetFile(image).subscribe(data=>{
+      this.ImageUrl=data;
+   });
+  }
   setCandidatInForm(data: ICandidat) {
     this.form.setValue({
       nom: data.nom,

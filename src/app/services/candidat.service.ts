@@ -1,6 +1,6 @@
 import { DecimalPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injectable, PipeTransform } from '@angular/core';
+import { Injectable, OnInit, PipeTransform } from '@angular/core';
 import { BehaviorSubject, debounceTime, delay, Observable, of, Subject, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Candidat, ICandidat } from '../Models/Candidat.model';
@@ -53,7 +53,7 @@ function matches(ICandidat: ICandidat, term: string, pipe: PipeTransform) {
   providedIn: 'root'
 })
 
-export class CandidatService  extends BaseService<ICandidat,number> {
+export class CandidatService  extends BaseService<ICandidat,number>  implements OnInit {
 
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
@@ -65,7 +65,6 @@ export class CandidatService  extends BaseService<ICandidat,number> {
   constructor(protected override http: HttpClient,private pipe: DecimalPipe) {
 
     super(http,CandidatService.endPoint);
-
     this._search$.pipe(
       tap(() => this._loading$.next(true)),
       debounceTime(200),
@@ -73,16 +72,19 @@ export class CandidatService  extends BaseService<ICandidat,number> {
       delay(200),
       tap(() => this._loading$.next(false))
     ).subscribe(result => {
-      
       this._Candidat$.next(result.Candidat);
       this._total$.next(result.total);
     });
 
-    this._search$.next();
+   this.GetResult().subscribe(data=>{
+     this.CANDIDATS=data;
+     this._Candidat$.next(this.CANDIDATS);
+     this._total$.next(this.CANDIDATS.length);
 
-    //this.GetResult().subscribe(data=>{
-      //this._Candidat$.next(Object.values(data));
-   // })
+   })
+   
+  }
+  ngOnInit(): void {
   }
   private _state: State = {
     page: 1,
@@ -111,13 +113,9 @@ export class CandidatService  extends BaseService<ICandidat,number> {
   }
 
 
-
   private _search(): Observable<SearchResult> {
-    this.GetResult().subscribe(data=>{
-       this.CANDIDATS=Object.values(data);
-    });
+   
     const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
-
     // 1. sort
     let Candidat = sort(this.CANDIDATS, sortColumn, sortDirection);
 
@@ -129,6 +127,10 @@ export class CandidatService  extends BaseService<ICandidat,number> {
     Candidat = Candidat.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({Candidat, total});
   }
+
+
+
+ 
 
 
 

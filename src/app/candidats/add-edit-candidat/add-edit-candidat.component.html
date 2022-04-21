@@ -3,6 +3,7 @@
 <div
   class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
 >
+<a href="https://localhost:7019/api/Candidat/GetFile{modal.imageUrl}">href</a>
 
   <h2 *ngIf="mode==false"  class="h2">Ajout Candidat</h2>
   <h2 *ngIf="mode==true" class="h2">Edit Candidat</h2>
@@ -20,6 +21,8 @@
   </div>
 </div>
 
+
+
 <div class="">
   <div class="row">
     <div class="col-3">
@@ -33,16 +36,28 @@
           
           <div>
             <div *ngIf="Civilite==null" class=" col image border-dark ">
-              <img src="../../../assets/images/manprofile.png" class="p-1" alt="Man avatar" srcset="">
-          
+              
+              <Kt-upload-image src="../../../assets/images/manprofile.png">
+
+              </Kt-upload-image>
             </div>
-            <div *ngIf="Civilite=='H'" class=" col image border-dark ">
-              <img src="../../../assets/images/manprofile.png" class="p-1" alt="Man avatar" srcset="">
-          
+            <div *ngIf="Civilite=='H'" [id]="modal.id" class=" col image border-dark ">
+             
+             
+              <Kt-upload-image *ngIf="ImageUrl===null" [id]="modal.id"  src="../../../assets/images/manprofile.png">
+              </Kt-upload-image>
+
+              <Kt-upload-image *ngIf="ImageUrl!==null" [id]="modal.id"  src="GetImage(ImageUrl)">
+              </Kt-upload-image>
             </div>
             <div *ngIf="Civilite=='F'" class=" col image border-dark ">
-              <img src="../../../assets/images/womanprofile.jpg" class="p-1" alt="Man avatar" srcset="">
-          
+             
+
+              <Kt-upload-image *ngIf="ImageUrl===null" [id]="modal.id"  src="../../../assets/images/womanprofile.png">
+              </Kt-upload-image>
+
+              <Kt-upload-image *ngIf="ImageUrl!==null" [id]="modal.id"  [src]="ImageUrl">
+              </Kt-upload-image>
             </div>
           </div>
           
@@ -503,7 +518,7 @@
             <ng-template ngbNavContent>
               
               <div class="h-100 bg-white">
-                <Kt-upload></Kt-upload>
+                <Kt-upload [id]="iditem"></Kt-upload>
                 <kt-pdf-viewer [src]="pdfSrc">
 
                 </kt-pdf-viewer>

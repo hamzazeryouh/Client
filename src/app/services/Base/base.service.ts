@@ -37,16 +37,8 @@ ExportExcel(): Observable<any>{
     return this.http.get<any>(`${this.baseUrl}/ExportExcel`);
 }
 
-ImportExcel(file:FormData): Observable<T[]>{
-    const httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'multipart/form-data' // <- HERE
-          }),
-       
-      }
-
-
-    return this.http.post<T[]>(`${this.baseUrl}/ImportExcel`,file,httpOptions);
+ImportExcel(file:FormData){
+    return this.http.post(`${this.baseUrl}/ImportExcel`,file);
 }
 /**
  * display information of T
@@ -73,4 +65,8 @@ Update(id: string, body: T): Observable<T> {
 Add(body: T): Observable<T> {
     return this.http.post<T>(`${this.baseUrl}`, body);
 }
+
+GetFile(name:any):Observable<any>{
+    return   this.http.post<any>(`${this.baseUrl}/GetFile/`,name);
+  }
 }

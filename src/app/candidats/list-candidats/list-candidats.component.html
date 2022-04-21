@@ -57,10 +57,12 @@
     </div>
 
     <div class="btn-group me-2">
-      <button               data-bs-toggle="modal"
-      data-bs-target="#ImportExcelModal" type="button"  class="btn btn-sm btn-outline-secondary">
-        import
-      </button>
+
+
+      <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+      <button type="button"  class="btn btn-sm btn-outline-secondary"
+      accept=".xls,.xlsx" (click)="file.click()">Import</button>
+
       <a class="btn btn-sm btn-outline-secondary"
        href="https://localhost:7019/api/Candidat/ExportExcel">Export</a>
     </div>
@@ -173,10 +175,11 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
+
+        
         <button
           type="button"
           (click)="file.click()"
-          data-bs-dismiss="modal"
           class="btn btn-primary"
           accept=".xls,.xlsx"
         >
@@ -216,7 +219,7 @@
         <td id="options" class="text-end">options</td>
       </tr>
     </thead>
-    <tbody *ngIf="Candidat$!==null" class="shadow-sm p-3 mb-5 bg-body rounded align-baseline">
+    <tbody *ngIf="Candidat$!==null" class="shadow-sm table-hover p-3 mb-5 bg-body rounded align-baseline">
 
       <tr
       
@@ -360,7 +363,9 @@
       [pageSize]="service.pageSize"
     >
     </ngb-pagination>
-
+    <div class="card-footer pb-0 pt-3">
+      <jw-pagination [items]="Candidat$" (changePage)="onChangePage($event)"></jw-pagination>
+  </div>
    
   </div>
 </form>

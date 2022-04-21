@@ -55,7 +55,7 @@ export class ViewcandidatsComponent implements OnInit {
         );
       });
 
-    this.form.disable();
+
   
     // Get List PosteNiveau
     this.PosteNiveauService.GetResult().subscribe(result=>{
@@ -67,6 +67,8 @@ export class ViewcandidatsComponent implements OnInit {
     this.PosteService.GetResult().subscribe(result=>{
       this.postes=Object.values(result);
     });
+
+    this.form.disable();
   }
 
   back(): void {

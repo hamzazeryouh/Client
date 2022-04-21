@@ -49,6 +49,8 @@ import {  LinkAnnotationService, BookmarkViewService, MagnificationService, Thum
 import { PdfViewerComponent } from './Shared/pdf-viewer/pdf-viewer.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { UploadComponent } from './Shared/upload/upload.component';
+import { UploadImageComponent } from './Shared/upload-image/upload-image.component';
+import { JwPaginationModule } from 'jw-angular-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +86,8 @@ import { UploadComponent } from './Shared/upload/upload.component';
       ListPosteComponent,
       SortableDirective,
       PdfViewerComponent,
-      UploadComponent
+      UploadComponent,
+      UploadImageComponent
       
    ],
    exports:[DropdownComponent],
@@ -99,16 +102,15 @@ import { UploadComponent } from './Shared/upload/upload.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgxEditorModule,
-    PdfViewerModule
+    PdfViewerModule,
+    JwPaginationModule
     
   ],
 
   providers: [
     DecimalPipe,
     DatePipe,
-    {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true},
-    ToolbarService, NavigationService, TextSearchService, TextSelectionService, PrintService,
-    LinkAnnotationService, BookmarkViewService, MagnificationService, ThumbnailViewService,
+    {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
