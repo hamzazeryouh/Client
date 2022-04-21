@@ -7,9 +7,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SideBarComponent implements OnInit {
 
+
+  toggel=true;
+  toggeladmin=false;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  sidetoggel(){
+this.toggel=!this.toggel;
+this.toggeladmin=!this.toggeladmin;
   }
 
 }

@@ -41,7 +41,7 @@ export class ListCandidatsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
+    //this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
   }
 
   public uploadFile = (files:any) => {
