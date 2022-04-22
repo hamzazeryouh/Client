@@ -12,6 +12,7 @@ import { Candidat, ICandidat } from 'src/app/Models/Candidat.model';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { SideBarComponent } from 'src/app/home/side-bar/side-bar.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-edit-candidat',
@@ -34,6 +35,7 @@ export class AddEditCandidatComponent implements OnInit {
   iditem:number;
   ImageUrl='';
   pdfSrc = '';
+   endPoint: string = `${environment.URL}api/Candidat`;
   constructor(
     private location: Location,
     private fb: FormBuilder,
@@ -62,32 +64,32 @@ export class AddEditCandidatComponent implements OnInit {
     this.iditem=Number(this.id) ;
     if (this.id !== 0) {
       this.mode = true;
-      this.service.Get(Number(this.id)).subscribe((data) => {
-        this.modal = data;
-        this.ImageUrl=String(this.modal.imageUrl);
-        this.setCandidatInForm(this.modal);
-        this.Nom = this.modal.nom;
-        this.Prenom = this.modal.prenom;
-        this.Civilite = this.modal?.civilite;
-        this.PosteService.Get(this.modal.posteId).subscribe((data) => {
-        let P = Object.values(data);
-        this.Poste=P[0];
-        });
-        this.PosteNiveauService.Get(this.modal.posteNiveauId).subscribe(
-          (data) => {
-            let N= Object.values(data);
-            this.Niveau =N[0];
-          }
-        );
-       console.log("image -----------"+this.modal?.imageUrl?.toString());
-       this.GetImage(this.modal?.imageUrl);
-        
-
-      });
+      this.RefrechData();
     }
   }
 
-
+RefrechData(){
+  this.service.Get(Number(this.id)).subscribe((data) => {
+    this.modal = data;
+    this.ImageUrl=String(this.modal.imageUrl);
+    this.setCandidatInForm(this.modal);
+    this.Nom = this.modal.nom;
+    this.Prenom = this.modal.prenom;
+    this.Civilite = this.modal?.civilite;
+    this.PosteService.Get(this.modal.posteId).subscribe((data) => {
+    let P = Object.values(data);
+    this.Poste=P[0];
+    });
+    this.PosteNiveauService.Get(this.modal.posteNiveauId).subscribe(
+      (data) => {
+        let N= Object.values(data);
+        this.Niveau =N[0];
+      }
+    );
+   this.GetImage(this.modal?.imageUrl);
+  
+  });
+}
 
 
   back(): void {
@@ -95,9 +97,7 @@ export class AddEditCandidatComponent implements OnInit {
   }
 
   GetImage(image:any){
-    this.service.GetFile(image).subscribe(data=>{
-      this.ImageUrl=data;
-   });
+   return  this.endPoint+"/GetFile/"+`${image}`;
   }
   setCandidatInForm(data: ICandidat) {
     this.form.setValue({
@@ -139,8 +139,6 @@ export class AddEditCandidatComponent implements OnInit {
       this.form.reset();
       this.Router.navigate([ `/candidats`]);
     } else {
-      debugger;
-      
       this.modal=this.form.value;
       this.modal.id=Number(this.route.snapshot.paramMap.get('id'));
       console.log(this.modal);
@@ -164,6 +162,8 @@ export class AddEditCandidatComponent implements OnInit {
             });
           });
         });
+
+        this.RefrechData();
     }
   }
   initForm() {

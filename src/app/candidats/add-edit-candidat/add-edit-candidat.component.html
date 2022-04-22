@@ -3,8 +3,6 @@
 <div
   class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
 >
-<a href="https://localhost:7019/api/Candidat/GetFile{modal.imageUrl}">href</a>
-
   <h2 *ngIf="mode==false"  class="h2">Ajout Candidat</h2>
   <h2 *ngIf="mode==true" class="h2">Edit Candidat</h2>
   <div class="btn-toolbar mb-2 mb-md-0">
@@ -35,28 +33,21 @@
           </div>
           
           <div>
-            <div *ngIf="Civilite==null" class=" col image border-dark ">
-              
-              <Kt-upload-image src="../../../assets/images/manprofile.png">
 
+            <div *ngIf="Civilite==null || Civilite==='none'" class=" col image border-dark ">
+              <Kt-upload-image  src="../../../assets/images/manprofile.png">
               </Kt-upload-image>
             </div>
-            <div *ngIf="Civilite=='H'" [id]="modal.id" class=" col image border-dark ">
-             
-             
-              <Kt-upload-image *ngIf="ImageUrl===null" [id]="modal.id"  src="../../../assets/images/manprofile.png">
-              </Kt-upload-image>
-
-              <Kt-upload-image *ngIf="ImageUrl!==null" [id]="modal.id"  src="GetImage(ImageUrl)">
+            <div *ngIf="Civilite=='H'&& mode==false" [id]="modal.id" class=" col image border-dark ">
+               <Kt-upload-image   class="w-25"  [id]="modal.id"  src="../../../assets/images/manprofile.png">
               </Kt-upload-image>
             </div>
-            <div *ngIf="Civilite=='F'" class=" col image border-dark ">
-             
-
-              <Kt-upload-image *ngIf="ImageUrl===null" [id]="modal.id"  src="../../../assets/images/womanprofile.png">
-              </Kt-upload-image>
-
-              <Kt-upload-image *ngIf="ImageUrl!==null" [id]="modal.id"  [src]="ImageUrl">
+            <div *ngIf="Civilite=='F'&& mode==false" [id]="modal.id" class=" col image border-dark ">
+              <Kt-upload-image  class="w-25"  [id]="modal.id"  src="../../../assets/images/womanprofile.jpg">
+             </Kt-upload-image>
+           </div>
+            <div *ngIf="mode==true" class=" col image border-dark ">
+              <Kt-upload-image  class="w-25 h-25" [id]="modal.id"  src="{{endPoint}}/GetFile/{{modal.imageUrl}}">
               </Kt-upload-image>
             </div>
           </div>
@@ -102,14 +93,13 @@
                   <div class="form-outline">
                     <label class="form-label" for="civilite">Civilité :</label>
                     <select
-                      
                       [(ngModel)]="Civilite"
                       [formControlName]="'civilite'"
                       class="form-select border"
                       name="civilite"
                       aria-label="Default select example"
                     >
-                      <option [selected]="true">Sélectionner</option>
+                      <option value="none" [selected]="true">Sélectionner</option>
                       <option value="H">Mr.</option>
                       <option value="F">Mms</option>
                     </select>
@@ -519,7 +509,7 @@
               
               <div class="h-100 bg-white">
                 <Kt-upload [id]="iditem"></Kt-upload>
-                <kt-pdf-viewer [src]="pdfSrc">
+                <kt-pdf-viewer src="{{endPoint}}/GetFile/{{modal.cvUrl}}">
 
                 </kt-pdf-viewer>
               </div> 

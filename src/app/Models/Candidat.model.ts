@@ -19,6 +19,7 @@ export interface ICandidat extends IBase {
     niveau: string | null;
     commentaire: string | null;
     imageUrl: string | null;
+    cvUrl: string | null;
 }
 
 export class Candidat extends Base {
@@ -40,4 +41,5 @@ export class Candidat extends Base {
     niveau!: string | null;
     commentaire!: string | null;
     imageUrl!: string | null;
+    cvUrl!: string | null;
 }

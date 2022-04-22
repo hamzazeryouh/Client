@@ -65,8 +65,8 @@ Update(id: string, body: T): Observable<T> {
 Add(body: T): Observable<T> {
     return this.http.post<T>(`${this.baseUrl}`, body);
 }
+GetFile(id: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/GetFile/${id}`);
+}
 
-GetFile(name:any):Observable<any>{
-    return   this.http.post<any>(`${this.baseUrl}/GetFile/`,name);
-  }
 }
