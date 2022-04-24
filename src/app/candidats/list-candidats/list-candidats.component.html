@@ -85,6 +85,21 @@
 </div>
 
 <div class="row p-2">
+
+  <select
+  class="form-select btn btn-sm btn-outline-secondary dropdown-toggle px-2"
+  style="width: auto"
+  name="pageSize"
+  [(ngModel)]="service.pageSize"
+>
+
+<option selected [ngValue]="10" >Filtres</option>
+  <option  [ngValue]="10">10</option>
+  <option [ngValue]="25">25</option>
+  <option [ngValue]="50">50</option>
+  <option [ngValue]="100">100</option>
+</select>
+
   <div class="col w-25">
     <input
       type="search"
