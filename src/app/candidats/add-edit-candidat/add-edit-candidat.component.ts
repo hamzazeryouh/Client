@@ -13,6 +13,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { SideBarComponent } from 'src/app/home/side-bar/side-bar.component';
 import { environment } from 'src/environments/environment';
+import { Evaluation } from 'src/app/Models/Evaluation';
 
 @Component({
   selector: 'app-add-edit-candidat',
@@ -35,6 +36,25 @@ export class AddEditCandidatComponent implements OnInit {
   iditem:number;
   ImageUrl='';
   pdfSrc = '';
+  Ev:Evaluation=new Evaluation();
+
+  //begin from  Evaluation
+      Evaluateur  :'';
+      DateEntretien :'';
+      CandidatId   :0;
+      CommenterId :0;
+      TemplateId :0;
+
+      ListTemplate:any[];
+  // end evaluation  
+
+  //begin Template model
+  Technologie:'';
+  theme:'';
+  Note:0;
+  Titre:'';
+
+  //end template model
    endPoint: string = `${environment.URL}api/Candidat`;
   constructor(
     private location: Location,
@@ -121,7 +141,6 @@ RefrechData(){
   // Process checkout data here
   
   save() {
-
     if (this.form.invalid) {
       return this.form.markAllAsTouched();
     }
