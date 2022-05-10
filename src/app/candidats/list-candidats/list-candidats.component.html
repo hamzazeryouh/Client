@@ -67,6 +67,7 @@
        href="https://localhost:7019/api/Candidat/ExportExcel">Export</a>
     </div>
   
+<!--
 
     <select
     class="form-select btn btn-sm btn-outline-secondary dropdown-toggle"
@@ -81,6 +82,10 @@
     <option [ngValue]="50">50</option>
     <option [ngValue]="100">100</option>
   </select>
+
+
+-->
+
   </div>
 </div>
 
@@ -93,7 +98,7 @@
   [(ngModel)]="service.pageSize"
 >
 
-<option selected [ngValue]="10" >Filtres</option>
+<option selected [ngValue]="10" ><i class="bi bi-filter"></i></option>
   <option  [ngValue]="10">10</option>
   <option [ngValue]="25">25</option>
   <option [ngValue]="50">50</option>
@@ -213,23 +218,23 @@
       <tr class="shadow-sm p-3 mb-5 bg-body rounded align-baseline">
         <th scope="col" sortable="id">#</th>
         <th scope="col" sortable="civilite" (sort)="onSort($event)">
-          Civilité
+          <i class="bi bi-funnel"></i> Civilité
         </th>
-        <th scope="col" sortable="nom" (sort)="onSort($event)">Nom</th>
-        <th scope="col" sortable="prenom" (sort)="onSort($event)">Prenom</th>
+        <th scope="col" sortable="nom" (sort)="onSort($event)"><i class="bi bi-funnel"></i> Nom</th>
+        <th scope="col" sortable="prenom" (sort)="onSort($event)"><i class="bi bi-funnel"></i> Prenom</th>
         <th scope="col" sortable="dateNaissance" (sort)="onSort($event)">
-          Date de naissance
+          <i class="bi bi-funnel"></i>  Date de naissance
         </th>
-        <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
+        <th scope="col" sortable="email" (sort)="onSort($event)"><i class="bi bi-funnel "></i> Email</th>
         <th scope="col" sortable="telephone" (sort)="onSort($event)">
-          Télephone
+          <i class="bi bi-funnel"></i> Télephone
         </th>
         <th
           scope="col"
           sortable="datePremiereExperience"
           (sort)="onSort($event)"
         >
-          Date premiere experience
+        <i class="bi bi-funnel"></i>  Date premiere experience
         </th>
         <td id="options" class="text-end">options</td>
       </tr>

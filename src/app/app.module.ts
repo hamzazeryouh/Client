@@ -51,6 +51,12 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { UploadComponent } from './Shared/upload/upload.component';
 import { UploadImageComponent } from './Shared/upload-image/upload-image.component';
 import { JwPaginationModule } from 'jw-angular-pagination';
+import { InterceptService } from './services/intercept.service';
+import { SplashScreenComponent } from './SplashScreen/splash-screen.component';
+import {
+  NgxAwesomePopupModule,
+  ToastNotificationConfigModule
+} from '@costlydeveloper/ngx-awesome-popup';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,10 +93,11 @@ import { JwPaginationModule } from 'jw-angular-pagination';
       SortableDirective,
       PdfViewerComponent,
       UploadComponent,
-      UploadImageComponent
+      UploadImageComponent,
+      SplashScreenComponent
       
    ],
-   exports:[DropdownComponent],
+   exports:[DropdownComponent,SplashScreenComponent,],
   imports: [
     CommonModule,
     BrowserModule,
@@ -103,14 +110,21 @@ import { JwPaginationModule } from 'jw-angular-pagination';
     HttpClientModule,
     NgxEditorModule,
     PdfViewerModule,
-    JwPaginationModule
+    JwPaginationModule,
+    NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
+        ToastNotificationConfigModule.forRoot() 
     
   ],
 
   providers: [
     DecimalPipe,
     DatePipe,
-    {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true},
+   /* {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptService,
+      multi: true
+  },*/
   ],
   bootstrap: [AppComponent]
 })

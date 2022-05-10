@@ -566,7 +566,8 @@
             <a ngbNavLink class="h4 m-1 px-5">CV</a>
             <ng-template ngbNavContent>
               <div class="h-100 bg-white">
-                <Kt-upload [id]="iditem"></Kt-upload>
+  
+                <Kt-upload [id]="iditem" ></Kt-upload>
                 <kt-pdf-viewer src="{{ endPoint }}/GetFile/{{ modal.cvUrl }}">
                 </kt-pdf-viewer>
               </div>
@@ -584,177 +585,189 @@
                         >Evaluateur :</label
                       >
                       <input
-                        [(ngModel)]="Evaluateur"
+                        [(ngModel)]="evaluationModal.Evaluateur"
                         type="text"
                         class="form-control"
                         autocomplete="off"
                         required
-                        name="Evaluateur"
-                        [ngClass]="{
-                          'is-invalid': submitted && error['Evaluateur'].errors
-                        }"
+                        name="evaluationModal.Evaluateur"
                       />
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="form-outline">
-                      <label class="form-label" for="civilite"
-                        >Template :</label
-                      >
 
-                      <div class="input-group mb-2">
-                        <select
-                          [(ngModel)]="TemplateId"
-                          name="TemplateId"
-                          name="posteId"
-                          class="form-select border"
-                          required
-                          aria-label="Default select example"
-                        >
-                          <option [selected]="true">Sélectionner</option>
-                          <option
-                            *ngFor="let item of ListTemplate"
-                            [value]="item.id"
-                          >
-                            {{ item.name }}
-                          </option>
-                        </select>
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">
-                            <button
-                              style="outline: none; border: none"
-                              data-bs-toggle="modal"
-                              data-bs-target="#addnewTemplateModal"
-                              aria-label="add"
-                            >
-                              <i class="bi bi-plus-circle"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div
-                        class="invalid-feedback"
-                        *ngIf="
-                          error['posteId'].invalid &&
-                          (error['posteId'].dirty || error['posteId'].touched)
-                        "
-                        class="text-danger"
-                      >
-                        <div *ngIf="error['posteId'].errors?.['required']">
-                          poste est requis.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <div class="col">
                     <div class="form-outline">
                       <label class="form-label">Date de entretien :</label>
                       <input
-                        [(ngModel)]="Ev.DateEntretien"
+                        [(ngModel)]="evaluationModal.DateEntretien"
                         class="form-control"
                         autocomplete="off"
                         required
                         type="date"
-                        name="Ev.DateEntretien"
+                        name="evaluationModal.DateEntretien"
                       />
                     </div>
                   </div>
 
+                  <div class="col" >
+                        <button
+                        *ngIf="evaluationModal!=null||evaluationModal!=undefined "
+                          style="outline: none; border: none ;margin-top: 32px;"
+                          data-bs-toggle="modal"
+                          data-bs-target="#addnewTemplateModal"
+                          aria-label="add"
+                          class="btn btn-primary"
+                        >
+                          <i class="bi bi-plus-circle"></i>
+                        Ajoute template
+                        </button>
+
+                  </div>
                 </div>
-                <hr>
-                <div class="row">
+                <hr />
+                <div *ngFor="let item of ListTemplate;let index = index; " class="row">
                   <div class="col">
                     <div class="form-outline mx">
-                      <label class="form-label" for="prenom"
+                      <label *ngIf="index==0" class="form-label" for="prenom"
                         >Technologie :</label
                       >
                       <input
-                        [(ngModel)]="Technologie"
+                        readonly
                         type="text"
-                        class="form-control"
+                        class="form-control my-1"
                         autocomplete="off"
+                        value="{{ item.technologie }}"
                         required
-                        name="Technologie"
-                        [ngClass]="{
-                          'is-invalid': submitted && error['theme'].errors
-                        }"
+                        
                       />
                     </div>
                   </div>
                   <div class="col">
                     <div class="form-outline mx">
-                      <label class="form-label" for="prenom"
-                        >theme :</label
-                      >
+                      <label *ngIf="index==0" class="form-label" for="prenom">theme :</label>
                       <input
-                        [(ngModel)]="theme"
+                        value=""
                         type="text"
-                        class="form-control"
-                        autocomplete="off"
+                        class="form-control my-1"
                         required
-                        name="theme"
-                        [ngClass]="{
-                          'is-invalid': submitted && error['theme'].errors
-                        }"
+                        readonly
+                        value="{{ item.them }}"
+                       
                       />
                     </div>
                   </div>
-
                   <div class="col">
                     <div class="form-outline mx">
-                      <label class="form-label" for="prenom"
-                        >Titre :</label
-                      >
+                      <label *ngIf="index==0" class="form-label" for="prenom">Titre :</label>
                       <input
-                        [(ngModel)]="Titre"
                         type="text"
-                        class="form-control"
+                        class="form-control my-1"
                         autocomplete="off"
                         required
-                        name="Titre"
-                        [ngClass]="{
-                          'is-invalid': submitted && error['Titre'].errors
-                        }"
+                        value="{{ item.title }}"
+                        readonly
+                       
                       />
                     </div>
                   </div>
-
                   <div class="col">
                     <div class="form-outline mx">
-                      <label class="form-label" for="Note"
-                        >Note :</label
-                      >
+                      <label *ngIf="index==0" class="form-label" for="Note">Note :</label>
                       <input
-                        [(ngModel)]="Note"
-                        type="text"
-                        class="form-control"
+                        type="number"
+                        class="form-control my-1"
                         autocomplete="off"
                         required
-                        name="Note"
-                        [ngClass]="{
-                          'is-invalid': submitted && error['Note'].errors
-                        }"
+                        readonly
+                        value="{{ item.note }}"
+                       
                       />
                     </div>
                   </div>
 
-                  <div class="col-auto ">
-                    <button style="margin-top: 30px" type="submit" class="btn btn-primary ">      <i class="bi bi-check-lg"></i></button>
+                  <div class="col mt-3">
+                       
+                    <div class="form-outline mx">
+                      <label  class="form-label" *ngIf="index==0" for="Note"> </label>
+                      <div class="container justify-content-end">
+                        <button
+                        data-bs-toggle="modal"
+                        (click)="EditTemplate(item.id)"
+                        data-bs-target="#addnewTemplateModal"
+                        aria-label="add"
+                          class="btn btn-sm btn-primary me-2 mb-1"
+                          aria-label="edit"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-pencil-square"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                            />
+                            <path
+                              fill-rule="evenodd"
+                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                            />
+                          </svg>
+                        </button>
+                        <button
+                        (click)="deleteTemplate(item.id)"
+                          class="btn btn-sm btn-danger me-2 mb-1"
+                          data-bs-toggle="modal"
+                          data-bs-target="#deleteModal"
+                          aria-label="delete"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-trash"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                            />
+                            <path
+                              fill-rule="evenodd"
+                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                       
+                        
+                    </div>
                   </div>
-                  
-                </div>
                 <div class="form-outline mb-4">
                   <label class="form-label" for="CommenterId"
                     >Commentaire</label
                   >
                   <textarea
                     class="form-control"
-                    id="CommenterId"
-                    name="CommenterId"
+                    id="CommenteModal.Commente"
+                    name="CommenteModal.Commente"
                     rows="4"
+                    [(ngModel)]="CommenteModal.Commente"
                   ></textarea>
                 </div>
+                  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                   <div></div>
+                   <div>
+                    <button type="button" (click)="AddEvaluation()" class="btn btn-primary mx-1">valider</button>
+                    <button type="button" class="btn btn-secondary p-2 btn-sm" (click)="back()">
+                      Annuler
+                    </button>
+                   </div>
+                    
+                  </div>
+               
               </form>
             </ng-template>
           </li>
@@ -785,26 +798,78 @@
         </div>
         <div class="modal-body">
           <!--begin modal body -->
-<div>
-  <div class="col">
-    <div class="form-outline mx">
-      <label class="form-label" for="prenom"
-        >Evaluateur :</label
-      >
-      <input
-        [(ngModel)]="Evaluateur"
-        type="text"
-        class="form-control"
-        autocomplete="off"
-        required
-        name="Evaluateur"
-        [ngClass]="{
-          'is-invalid': submitted && error['Evaluateur'].errors
-        }"
-      />
-    </div>
-  </div>
-</div>
+          <div>
+            <div class="col">
+              <div class="form-outline mx">
+                <div class="col">
+                  <div class="form-outline mx">
+                    <label class="form-label" for="prenom">Technologie :</label>
+                    <input
+                      [(ngModel)]="templatemodal.technologie"
+                      type="text"
+                      class="form-control"
+                      autocomplete="off"
+                      required
+                      name="templatemodal.technologie"
+                      [ngClass]="{
+                        'is-invalid': submitted && error['theme'].errors
+                      }"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline mx">
+                    <label class="form-label" for="prenom">theme :</label>
+                    <input
+                      [(ngModel)]="templatemodal.them"
+                      type="text"
+                      class="form-control"
+                      autocomplete="off"
+                      required
+                      name="templatemodal.them"
+                      [ngClass]="{
+                        'is-invalid': submitted && error['theme'].errors
+                      }"
+                    />
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="form-outline mx">
+                    <label class="form-label" for="prenom">Titre :</label>
+                    <input
+                      [(ngModel)]="templatemodal.title"
+                      type="text"
+                      class="form-control"
+                      autocomplete="off"
+                      required
+                      name="templatemodal.title"
+                      [ngClass]="{
+                        'is-invalid': submitted && error['Titre'].errors
+                      }"
+                    />
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="form-outline mx">
+                    <label class="form-label" for="Note">Note :</label>
+                    <input
+                      [(ngModel)]="templatemodal.note"
+                      type="number"
+                      class="form-control"
+                      autocomplete="off"
+                      required
+                      name="templatemodal.note"
+                      [ngClass]="{
+                        'is-invalid': submitted && error['Note'].errors
+                      }"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <!--end modal body -->
         </div>
         <div class="modal-footer">
@@ -816,7 +881,7 @@
             Close
           </button>
 
-          <button type="button" class="btn btn-primary" accept=".xls,.xlsx">
+          <button (click)="addTemplate()" type="button" class="btn btn-primary">
             valider
           </button>
         </div>

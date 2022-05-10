@@ -74,18 +74,7 @@ export class ListCandidatsComponent implements OnInit {
       });
     }
     );
-
-    
-   
-
-
-    
-  
-    
   }
-
-  
-
   onSort({column, direction}: SortEvent) {
     // resetting other headers
     this.headers.forEach(header => {

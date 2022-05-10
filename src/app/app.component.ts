@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { delay } from 'rxjs/operators';
 import { LoadingService } from './services/loading.service';
+import { HttpRequestInterceptor } from './_interceptors/loading.interceptor';
 
 
 @Component({
@@ -11,9 +12,10 @@ import { LoadingService } from './services/loading.service';
 export class AppComponent implements OnInit {
   title = 'Client';
   loading: boolean = false;
-
+ error:string;
   constructor(
     private _loading: LoadingService
+
   ){ }
 
   ngOnInit() {
@@ -27,6 +29,8 @@ export class AppComponent implements OnInit {
         this.loading = loading;
       });
   }
+
+
 }
 
 
